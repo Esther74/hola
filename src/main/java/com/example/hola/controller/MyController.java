@@ -12,15 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author soporte
  */
 
-@RestController
-//@Controller
+//@RestController
+@Controller
 public class MyController {
     
     @Autowired
@@ -28,12 +27,12 @@ public class MyController {
     
     @GetMapping("/showCities")
     //public List<City> findCities(){ //como JSON
-    public List<City> findCities(Model model){
+    public String findCities(Model model){
         //return cityService.findAll(); //como JSON
         List<City> cities = cityService.findAll();
-        //model.addAttribute("cities", cities);
-        return cities;
-        //return "showCities";
+        model.addAttribute("cities", cities);
+        //return cities;
+        return "showCities";
     }
     //http://localhost:8080/showCities
 }
