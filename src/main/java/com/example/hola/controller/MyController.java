@@ -9,9 +9,9 @@ import com.example.hola.model.City;
 import com.example.hola.service.ICityService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -19,22 +19,34 @@ import org.springframework.web.bind.annotation.RestController;
  * @author soporte
  */
 
-@RestController
+@RestController //JSON
 //@Controller
-public class MyController {
+
+@RequestMapping("/showCities")public class MyController {
     
     @Autowired
     private ICityService cityService;
     
-    @GetMapping("/showCities")
-    public List<City> findCities(){ //como JSON
-    
+    @GetMapping("/todas")
+    public List<City> muestraCities(){ //como JSON
     //public String findCities(Model model){    
-        //return cityService.findAll(); //como JSON
-        List<City> cities = cityService.findAll(); //JSON
+    
+        return cityService.findAll(); //como JSON
+       
+        //front end
+        
+        //List<City> cities = cityService.findAll();
         //model.addAttribute("cities", cities);
-        return cities;
-        //return "showCities";
+        //return "todas";
     }
-    //http://localhost:8080/showCities
+    
+    
+    @GetMapping("/{id}")
+    public City muestraCity(@PathVariable long id) { //JSON
+    
+        return cityService.findById(id)
+          .orElseThrow(CityNotFoundException::new);
+    }
+    
+    
 }

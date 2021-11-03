@@ -7,6 +7,7 @@ package com.example.hola.service;
 
 import com.example.hola.model.City;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -14,4 +15,6 @@ import java.util.List;
  */
 public interface ICityService {
     List<City> findAll();
+    
+    public Optional<City> findById(Long id);
 }
